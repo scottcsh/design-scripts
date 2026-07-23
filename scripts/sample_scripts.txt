@@ -1,0 +1,17 @@
+# foundry-proteinmpnn
+proteinmpnn -i <input dir> -o <output dir>
+
+# MSA only
+msa --name test_MSA -i MQSIKGNHLVKVYDYQEDGSVLLTCDAEAKNITWFKDGKMIGFLTEDK
+
+# AF3 input generation
+af3inputgen -A <MSA_data.json> -B <fasta dir> -o <outpur dir>
+
+# AF3 batch run
+af3batch -i <input json dir> -o <output dir> [--inference-gpus 0,1]
+
+# Rosetta interface filtering
+rosettafilter -i <af3 result dir> -o <output dir> --af3-top 1000 --af3-preset <none,loose,balanced,strict> --interface A_B [--rename] [--np 24]
+
+# foundry-rfd3
+rfd3 -i 1SY6.pdb -c '60-120,/0,A118-203' -h 'A144,A150,A151,A161G,A162,A190,A191' -o ./output_test
